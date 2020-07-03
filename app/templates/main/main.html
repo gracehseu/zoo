@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<body>
+    {% if current_user.is_authenticated %}
+        <p>Hello zookeeper {{ name -}}!</p>
+    {% else %}
+        <p>Hello zookeeper!</p>
+    {% endif %}
+    <p>Welcome to your zoo :)<p>
+    <p>Choose an animal to start with</p>
+    {% for i in range(animals|count) %}
+    
+        {% if i % 4 == 0 %}
+            <br>
+        {% endif %}
+        <a href="habitat/{{- animals[i] -}}"><img src='/static/assets/{{- animals[i] -}}.png'></a>
+    {% endfor %}
+
+</body>
+    
+
+
+{% endblock %}

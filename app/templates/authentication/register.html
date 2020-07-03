@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <h1>Register!</h1>
+
+<body>
+    {% if current_user.is_authenticated %}
+    <p>Please logout to register again :)</p>
+
+    {% else %}
+    <form action="/register" method="POST">
+        <!-- {{ form.hidden_tag() }} -->
+        <p>
+            {{ form.name_input.label }}
+            <br>
+            {{ form.name_input() }}
+        </p>
+        <p>
+            {{ form.email_input.label }}
+            <br>
+            {{ form.email_input() }}
+        </p>
+        <p>
+            {{ form.password_input.label }}
+            <br>
+            {{ form.password_input() }}
+        </p>
+        <p>{{ form.submit() }}</p>
+        {{ form.csrf_token }}
+    </form>
+    {% endif %}
+
+</body>
+
+{% endblock %}

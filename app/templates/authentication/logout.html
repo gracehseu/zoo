@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <h1>Log Out?</h1>
+
+<body>
+    <form action="/logout" method="POST">
+        <!-- {{ form.hidden_tag() }} -->
+        <p>
+            {{ form.stay_logged_in() }}
+        </p>
+        <p>
+            {{ form.logout_input() }}
+        </p>
+
+        {{ form.csrf_token }}
+    </form>
+</body>
+
+{% endblock %}

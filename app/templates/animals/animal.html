@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<body>
+<p>Welcome to the {{animalText}} habitat!</p>
+</body>
+    <center>
+    <div id="game" align='center'>
+
+        {% block javascript %}
+            <script type="text/javascript">
+                var animalData = '{{ animal }}';
+                var animalText = '{{ animalText }}';
+                var animalsRehabilitated = '{{ animals_rehabilitated }}';
+                var animalsKilled = '{{ animals_killed }}';
+             </script>
+            <script src='/static/js/phaser.js'></script>
+            <script src='/static/js/animal.js'></script>
+        {% endblock %}
+
+    </div>
+    </center>
+{% endblock %}

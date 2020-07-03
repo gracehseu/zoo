@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <title>ZOO</title>
+        <link rel="stylesheet" href="style.css">
+         <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> 
+        <a href="/"><button>Home</button></a>
+        <a href="/register"><button>Register</button></a>
+        {% if current_user.is_authenticated %}
+        <a href="/logout"><button>Log Out</button></a>
+        {% else %}
+        <a href="/login"><button>Log In</button></a>
+        {% endif %}
+    </head>
+     <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">Zoo</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="/register"><button>Register</button></a></li>
+                <li>
+                    {% if current_user.is_authenticated %}
+                    <a href="/logout"><button>Log Out</button></a>
+                    {% else %}
+                    <a href="/login"><button>Log In</button></a>
+                    {% endif %}</li>
+                
+            </ul>
+        </div>
+    </nav> 
+    {% block content %}{% endblock %}
+</html>
