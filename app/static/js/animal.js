@@ -12,7 +12,7 @@ var config = {
         create: create,
         update: update
     },
-    canvas: document.querySelector('game')
+    parent: 'game'
 };
 
 var scaleConfig = {

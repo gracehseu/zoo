@@ -1,20 +1,29 @@
 {% extends 'base.html' %}
 {% block content %}
 
-    <h1>Log Out?</h1>
+<div class="jumbotron text-center">
+    <body>
+        <h1>Logout?</h1>
+        <form class="form-horizontal" action="/logout" method="POST">
+            <!-- {{ form.hidden_tag() }} -->
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-offset-4 col-sm-4">
+                    {{ form.stay_logged_in(size=10, class_="form-control") }}
+                    </div>  
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-offset-4 col-sm-4">
+                    {{ form.logout_input(size=10, class_="form-control") }}
+                    </div>  
+                </div>
+            </div>
+            {{ form.csrf_token }}
+        </form>
+    </body>
+</div>
 
-<body>
-    <form action="/logout" method="POST">
-        <!-- {{ form.hidden_tag() }} -->
-        <p>
-            {{ form.stay_logged_in() }}
-        </p>
-        <p>
-            {{ form.logout_input() }}
-        </p>
-
-        {{ form.csrf_token }}
-    </form>
-</body>
 
 {% endblock %}

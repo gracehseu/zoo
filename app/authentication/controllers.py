@@ -36,6 +36,7 @@ def login():
         user_id = UserDBModel().validate(form.email_input.data, form.password_input.data)
 
         if user_id != None:
+            session.clear()
             current_user = UserModel(user_id)
             login_user(current_user)
             

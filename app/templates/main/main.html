@@ -3,13 +3,17 @@
 
 
 <body>
+    <div class="container-fluid bg-1 text-center">
     {% if current_user.is_authenticated %}
-        <p>Hello zookeeper {{ name -}}!</p>
+        <h3>Hello zookeeper {{ name -}}!</h3>
     {% else %}
-        <p>Hello zookeeper!</p>
+        <h3>Hello zookeeper!</h3>
     {% endif %}
+    <img src="/static/assets/zookeeper.png" alt=":)" width="75">
     <p>Welcome to your zoo :)<p>
     <p>Choose an animal to start with</p>
+    </div>
+    <div class="container-fluid bg-2 text-center">
     {% for i in range(animals|count) %}
     
         {% if i % 4 == 0 %}
@@ -17,7 +21,7 @@
         {% endif %}
         <a href="habitat/{{- animals[i] -}}"><img src='/static/assets/{{- animals[i] -}}.png'></a>
     {% endfor %}
-
+    </div>
 </body>
     
 

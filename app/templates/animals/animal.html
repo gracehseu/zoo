@@ -2,22 +2,24 @@
 {% block content %}
 
 <body>
-<p>Welcome to the {{animalText}} habitat!</p>
-</body>
-    <center>
-    <div id="game" align='center'>
-
-        {% block javascript %}
-            <script type="text/javascript">
-                var animalData = '{{ animal }}';
-                var animalText = '{{ animalText }}';
-                var animalsRehabilitated = '{{ animals_rehabilitated }}';
-                var animalsKilled = '{{ animals_killed }}';
-             </script>
-            <script src='/static/js/phaser.js'></script>
-            <script src='/static/js/animal.js'></script>
-        {% endblock %}
-
+    <div class="container-fluid bg-1 text-center">
+    <h3>Welcome to the {{animalText}} habitat!</h3>
     </div>
-    </center>
+    <div class="container-fluid bg-2 text-center">
+        <div id="game">
+
+            {% block javascript %}
+                <script type="text/javascript">
+                    var animalData = '{{ animal }}';
+                    var animalText = '{{ animalText }}';
+                    var animalsRehabilitated = '{{ animals_rehabilitated }}';
+                    var animalsKilled = '{{ animals_killed }}';
+                 </script>
+                <script src='/static/js/phaser.js'></script>
+                <script src='/static/js/animal.js'></script>
+            {% endblock %}
+
+        </div>
+    </div>
+</body>
 {% endblock %}
