@@ -11,7 +11,7 @@
     {% endif %}
     <img src="/static/assets/zookeeper.png" alt=":)" width="75">
     <p>Welcome to your zoo :)<p>
-    <p>Choose an animal to start with</p>
+    <p>Choose an animal to work with</p>
     </div>
     <div class="container-fluid bg-2 text-center">
     {% for i in range(animals|count) %}
@@ -19,8 +19,10 @@
         {% if i % 4 == 0 %}
             <br>
         {% endif %}
-        <a href="habitat/{{- animals[i] -}}"><img src='/static/assets/{{- animals[i] -}}.png'></a>
+        <a href="habitat/{{- animals[i] -}}"><img src='/static/assets/{{- animals[i] -}}.png' height="150px"></a>
     {% endfor %}
+    <br>
+    <img src='/static/assets/elephant sprite.png' height="150px"></a>
     </div>
 </body>
     

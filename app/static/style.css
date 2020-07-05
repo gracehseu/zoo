@@ -1,8 +1,10 @@
 .navbar {
   background-color: #b8d5b8;
+  margin-bottom: 0;
 }
 .navbar .navbar-brand {
   color: #686868;
+  font-size: 1.4em;
 }
 .navbar .navbar-brand:hover,
 .navbar .navbar-brand:focus {
@@ -22,6 +24,8 @@
   color: #686868;
   border-radius: .25rem;
   margin: 0 0.25em;
+  background-color: #b8d5b8;
+  font-size: .8em;
 }
 .navbar .navbar-nav .nav-link:not(.disabled):hover,
 .navbar .navbar-nav .nav-link:not(.disabled):focus {
@@ -128,12 +132,40 @@
 }
 
 .bg-1 { 
-    background-color: #05A8AA; /* Green */
-    color: #ffffff;
+    background-color: #c2d1e0;
+    color: #686868;
+    padding: 0;
 }
 
 .bg-2 { 
-    background-color: #d5c6b8; /* Green */
-    color: #ffffff;
+    padding: 0;
 }
 
+.jumbotron{
+  background-color: #c2d1e0;
+  color: #686868;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  background-color: #f6f9f6;
+
+}
+
+@font-face {
+    font-family: pixelheart;
+    src: url('assets/rainyhearts.ttf');
+    font-weight: 400;
+    font-weight: normal;
+}
+
+* {
+ font-size: 1.2em;
+ font-family: pixelheart;
+ margin-right: 0;
+}
+
+.form-group {
+  font-size: .8em;
+}

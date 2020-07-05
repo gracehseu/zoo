@@ -1,10 +1,19 @@
 var xmlhttp;
 xmlhttp = new XMLHttpRequest();
 
+var configWidth = window.screen.availWidth;
+var configHeight = window.screen.availHeight * 0.75;
+
+console.log(configWidth, configHeight);
+
+var fullscreenWidth = window.screen.width;
+var fullscreenHeight = window.screen.height;
+console.log(fullscreenWidth, fullscreenHeight);
+
 var config = {
     type: Phaser.AUTO,
-    width: 800,
-    height: 600,
+    width: configWidth,
+    height: configHeight,
     transparent: true,
     fullscreenTarget: 'game',
     scene: {
@@ -16,11 +25,17 @@ var config = {
 };
 
 var scaleConfig = {
-    mode: Phaser.Scale.FIT
+    mode: Phaser.Scale.RESIZE
+};
+
+var fontStyle = {
+    fill: '#000', 
+    fontFamily: 'pixelheart',
+    fontSize: '20px'
 };
 
 var game = new Phaser.Game(config);
-var scale = new Phaser.Scale.ScaleManager();
+var scale = new Phaser.Scale.ScaleManager(scaleConfig);
 var animalTimer = new Phaser.Time.TimerEvent()
 var animal = animalData;
 var animalText = animalText;
@@ -33,10 +48,10 @@ var timer = 0;
 var animal_timer;
 var flag = false;
 var studyMinutes = 1;
-// var fps = game.loop.actualFps;
-var msinseconds = 60;
+var fps = 60;
+// var msinseconds = 60;
 var secondsinminute = 60;
-// var studyTime = studyMinutes * secondsinminute * msinseconds;
+var studyTime = studyMinutes * secondsinminute * fps;
 var studyTime = 100;
 var animalDrawn = false;
 var triedForAnimal = true;
@@ -45,70 +60,64 @@ var animalSprite;
 var onLoad = true;
 var animalOnDisplay = animalCount % 20;
 var minWidth = 50;
-var maxWidth = 750;
+var maxWidth = configWidth - 50;
 var minHeight = 100;
-var maxHeight = 550;
+var maxHeight = configHeight - 50;
 
 function preload () {
-    this.load.image('animal', '/static/assets/' + animal + '.png');
+    this.load.spritesheet('animal', '/static/assets/' + animal + ' sprite.png', { frameWidth: 50, frameHeight: 50, endFrame: 6 });
     this.load.image('background', '/static/assets/background.png');
 };
 
 function create () {
+
+    // create background
+    this.add.tileSprite(config.width / 2, config.height / 2, config.width, config.height, 'background');
+    
+    // set up full screen 
     var canvas = this.sys.game.canvas;
     var fullscreen = this.sys.game.device.fullscreen;
 
-    this.add.tileSprite(config.width / 2, config.height / 2, config.width, config.height, 'background');
-
-    // var graphics = this.add.graphics();
-    // graphics.fillStyle(0xffff00, 1);
-    // graphics.fillRect(0, config.height / 5 * 4, config.width, config.height / 5);
-    
-    button = this.add.text(config.width / 2, 10,
-        'rescue a baby ' + animalText + '!', {color: 'white'});
-    button.setBackgroundColor('darkgray');
+    // create rescue button
+    button = this.add.text(config.width / 2 - 110, 10,
+        'rescue a baby ' + animalText + '!', fontStyle);
+    button.setBackgroundColor('lightgray');
     button.setPadding(10, 10, 10, 10);
     button.setInteractive();
     button.on('pointerup', function () {
         canvas[fullscreen.request]();
-        // this.animalDrawn = false;
         triedForAnimal = true;
-        // button.setVisible(false);
-        // animal_timer = this.time.addEvent({ delay: 30000, callback: this.scale.toggleFullscreen(), callbackscope: this});
         timerText.setVisible(true);
 
     }, this);   
-    timerText = this.add.text(config.width / 2, 10, "30:00", {fill: '#000'});
+
+    // create text for timer, animals alive, animals killed
+    timerText = this.add.text(config.width / 2, 10, "30:00", fontStyle);
     timerText.setVisible(false);
-    animalAliveText = this.add.text(10, 10, 'Animals alive: ' + animalCount, {fill: '#000'});
-    animalDeadText = this.add.text(10, 30, 'Animals killed: ' + deadAnimalCount, {fill: '#000'});
+    animalAliveText = this.add.text(10, 10, animalText + 's rehabilitated: ' + animalCount, fontStyle);
+    animalDeadText = this.add.text(10, 40, animalText + 's killed: ' + deadAnimalCount, fontStyle);
     animalGroup = this.add.group({maxSize: 20});
-    // this.add.sprite(100 + xOffset * 50, 100 + yOffset * 50, 'animal');
-    // animalSprite.setScale(0.25);
+
+    // animal movement creation
+    var animalMoveConfig = {
+        key: 'movement',
+        frames: this.anims.generateFrameNumbers('animal', {start: 0, end: 6, first: 0}),
+        frameRate: 10,
+        repeat: -1
+    };
+    this.anims.create(animalMoveConfig);
+
 };
 
 // TODO: find something better than pass in 
 // I don't think passing in this is good coding
 function draw_animals(the_game) {
-    // var xOffset = yOffset = 0;
-    // reduced_animals = animalCount % 20;
-    // for (var i = 0; i < reduced_animals; i++) {
-    //     if (i % 5 == 0) {
-    //         xOffset = 0;
-    //     };
-    //     if (i % 5 == 0) {
-    //         yOffset++;;
-    //     };
-    //     var tempAnimal = the_game.add.sprite(100 + xOffset * 50, 100 + yOffset * 50, 'animal');
-    //     xOffset++;
-    //     tempAnimal.setScale(0.25);
-    // };
-    // console.log(Math.random(800));
     if (animalGroup.isFull()) {
         animalGroup.clear(true)
     } 
     var tempAnimal = the_game.add.sprite(getRandomIntInclusive(minWidth, maxWidth), getRandomIntInclusive(minHeight, maxHeight), 'animal')
-    tempAnimal.setScale(0.35);
+    tempAnimal.play('movement');
+    
     if (getRandomIntInclusive(0, 1) == 1){
             tempAnimal.flipX = true;
         }
@@ -123,17 +132,20 @@ function getRandomIntInclusive(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function animal_movement () {
+function animal_movement (the_game) {
+
     var listAnimals = animalGroup.getChildren();
     listAnimals.forEach(changePosition);
     function changePosition (animal){
+
+        // animal.play('movement');
         // console.log(animal);
-    
         if (getRandomIntInclusive(0, 200) == 1){        
             if (animal.flipX == false) {
                 // animal.x;
                 animal.y++;
                 animal.x-=10;
+
 
             } else {
                 // animal.x -= 2;
@@ -176,7 +188,7 @@ function update () {
         };
         onLoad = false;
     }
-    animal_movement();
+    animal_movement(this);
     if (this.scale.isFullscreen) {
         // console.log('time elapsed' + animal_timer.getElapsedSeconds());
         // display_time(animal_timer.getElapsedSeconds(), this)
@@ -203,7 +215,7 @@ function update () {
             // draw_animals (this);
             // console.log(animalSprite);
             // animalGroup.create(Math.random(), Math.random(), 'animal').scale(0.25);
-            animalAliveText.setText('Animals rehabilitated: ' + animalCount);
+            animalAliveText.setText(animalText + 's rehabilitated: ' + animalCount);
             animalDrawn = true;
             timerText.setVisible(false);
         }
@@ -215,7 +227,7 @@ function update () {
                 'animal' : animal,
                 'animalDead' : deadAnimalCount
             }));
-            animalDeadText.setText('Animals killed: ' + deadAnimalCount);
+            animalDeadText.setText(animalText + 's killed: ' + deadAnimalCount);
             triedForAnimal = false;
             timerText.setVisible(false);
             timer = 0;

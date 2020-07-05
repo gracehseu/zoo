@@ -11,7 +11,7 @@ class RegistrationForm(FlaskForm):
 class LoginForm(FlaskForm):
     email_input = StringField('Email: ', validators=[DataRequired()])
     password_input = PasswordField('Password: ', validators=[DataRequired()])
-    submit = SubmitField('submit')
+    submit = SubmitField('Log In')
 
 class LogoutForm(FlaskForm):
     stay_logged_in = SubmitField('No, I changed my mind!')
