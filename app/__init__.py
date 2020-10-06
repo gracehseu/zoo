@@ -42,6 +42,12 @@ app.register_blueprint(animals_bp)
 def not_found(error):
     return render_template('404.html'), 404
 
+
+if __name__ == '__main__':
+    app.run()
+    # socketio.run(app)
+
+
 # print(ANIMALS)
 
 # # global ANIMALS 

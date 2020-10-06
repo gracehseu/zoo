@@ -65,15 +65,15 @@ var minHeight = 100;
 var maxHeight = configHeight - 50;
 
 function preload () {
-    this.load.spritesheet('animal', '/static/assets/' + animal + ' sprite.png', { frameWidth: 50, frameHeight: 50, endFrame: 6 });
+    this.load.spritesheet('animal', '/static/assets64/' + animal + '.png', { frameWidth: 64, frameHeight: 64, endFrame: 2 });
     this.load.image('background', '/static/assets/background.png');
 };
 
 function create () {
 
     // create background
-    this.add.tileSprite(config.width / 2, config.height / 2, config.width, config.height, 'background');
-    
+    background = this.add.tileSprite(config.width / 2, config.height / 2, config.width, config.height, 'background');
+    background.setScale(4);
     // set up full screen 
     var canvas = this.sys.game.canvas;
     var fullscreen = this.sys.game.device.fullscreen;
@@ -101,8 +101,8 @@ function create () {
     // animal movement creation
     var animalMoveConfig = {
         key: 'movement',
-        frames: this.anims.generateFrameNumbers('animal', {start: 0, end: 6, first: 0}),
-        frameRate: 10,
+        frames: this.anims.generateFrameNumbers('animal', {start: 0, end: 2}),
+        frameRate: 4,
         repeat: -1
     };
     this.anims.create(animalMoveConfig);
@@ -115,8 +115,9 @@ function draw_animals(the_game) {
     if (animalGroup.isFull()) {
         animalGroup.clear(true)
     } 
-    var tempAnimal = the_game.add.sprite(getRandomIntInclusive(minWidth, maxWidth), getRandomIntInclusive(minHeight, maxHeight), 'animal')
-    tempAnimal.play('movement');
+    var tempAnimal = the_game.add.sprite(getRandomIntInclusive(minWidth, maxWidth), getRandomIntInclusive(minHeight, maxHeight), 'animal');
+    // tempAnimal.setScale(4);
+    tempAnimal.play('movement', false, getRandomIntInclusive(0,2));
     
     if (getRandomIntInclusive(0, 1) == 1){
             tempAnimal.flipX = true;
@@ -140,7 +141,7 @@ function animal_movement (the_game) {
 
         // animal.play('movement');
         // console.log(animal);
-        if (getRandomIntInclusive(0, 200) == 1){        
+        if (getRandomIntInclusive(0, 100) == 1){        
             if (animal.flipX == false) {
                 // animal.x;
                 animal.y++;
