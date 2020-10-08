@@ -12,10 +12,8 @@ def register():
     
     if form.validate_on_submit():
         
-        if form.name_input.data.find(";") != -1 or 
-            form.email_input.data.find(";") != -1 or
-            form.password_input.data.find(";") != -1:
-            return render_template('authentication/register.html', form=form)
+        # if form.name_input.data.find(";") != -1 or form.email_input.data.find(";") != -1 or form.password_input.data.find(";") != -1:
+        #     return render_template('authentication/register.html', form=form)
 
         # adds a user into the database
         registration_success = UserDBModel().create(form.name_input.data, form.email_input.data, form.password_input.data, session)
@@ -38,9 +36,8 @@ def login():
         # if user has valid credentials returns user id
         # otherwise returns None
 
-        if form.email_input.data.find(";") != -1 or
-            form.password_input.data.find(";") != -1:
-            return render_template('authentication/register.html', form=form)
+        # if form.email_input.data.find(";") != -1 or form.password_input.data.find(";") != -1:
+        #     return render_template('authentication/register.html', form=form)
 
         user_id = UserDBModel().validate(form.email_input.data, form.password_input.data)
 
