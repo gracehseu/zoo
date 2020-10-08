@@ -79,7 +79,7 @@ function create () {
     var fullscreen = this.sys.game.device.fullscreen;
 
     // create rescue button
-    button = this.add.text(config.width / 2 - 110, config.height - 20,
+    button = this.add.text(config.width / 2 - 110, config.height - 60,
         'rescue a baby ' + animalText + '!', fontStyle);
     button.setBackgroundColor('lightgray');
     button.setPadding(10, 10, 10, 10);
