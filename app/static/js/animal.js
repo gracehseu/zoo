@@ -47,12 +47,12 @@ var button;
 var timer = 0;
 var animal_timer;
 var flag = false;
-var studyMinutes = 1;
+var studyMinutes = 30;
 var fps = 60;
 // var msinseconds = 60;
 var secondsinminute = 60;
 var studyTime = studyMinutes * secondsinminute * fps;
-var studyTime = 100;
+// var studyTime = 100;
 var animalDrawn = false;
 var triedForAnimal = true;
 var animalGroup = new Phaser.GameObjects.Group(update);
@@ -79,7 +79,7 @@ function create () {
     var fullscreen = this.sys.game.device.fullscreen;
 
     // create rescue button
-    button = this.add.text(config.width / 2 - 110, 10,
+    button = this.add.text(config.width / 2 - 110, config.height - 20,
         'rescue a baby ' + animalText + '!', fontStyle);
     button.setBackgroundColor('lightgray');
     button.setPadding(10, 10, 10, 10);
